@@ -1,0 +1,26 @@
+<h1>Sign up</h1>
+
+<form action="<%= users_url %>" method="post">
+  <input  type="hidden" name="authenticity_token"
+          value="<%= form_authenticity_token %>">
+
+  <label>
+    Name
+    <input type="text" name="user[name]">
+  </label>
+  <br>
+
+  <label>
+    Password
+    <input type="password" name="user[password]">
+  </label>
+  <br><br>
+
+  <% @subscription_plans.each do |sub| %>
+    <%= render_subscription_plan(sub) %>
+    <br>
+  <% end %>
+
+  <input type="submit" value="Sign up!">
+
+</form>

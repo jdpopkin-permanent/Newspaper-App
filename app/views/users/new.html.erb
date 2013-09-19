@@ -1,0 +1,32 @@
+<h1>Sign up</h1>
+
+<form action="<%= users_url %>" method="post">
+  <input  type="hidden" name="authenticity_token"
+          value="<%= form_authenticity_token %>">
+
+  <label>
+    Name
+    <input type="text" name="user[name]">
+  </label>
+  <br>
+
+  <label>
+    Password
+    <input type="password" name="user[password]">
+  </label>
+  <br><br>
+
+  <% @newspapers.each do |newspaper| %>
+    <label><%= newspaper.title %>
+      <select name="user[subscription_plan_ids][]">
+        <option value="">None</option>
+        <% newspaper.subscription_plans.each do |plan| %>
+          <option value="<%= plan.id %>"><%= plan.to_s %></option>
+        <% end %>
+      </select>
+    </label>
+  <% end %>
+
+  <input type="submit" value="Sign up!">
+
+</form>

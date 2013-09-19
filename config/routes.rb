@@ -2,6 +2,7 @@ News::Application.routes.draw do
   resources :newspapers do
     resources :subscription_plans, only: [:new, :create]
   end
+  resources :users
 
 
   # The priority is based upon order of creation:
