@@ -11,5 +11,32 @@
     <input type="text" name="newspaper[editor]">
   </label>
 
+
+  <% 5.times do |i| %>
+    <br>
+    <label>
+      Subscription Plan <%= (i + 1).to_s %> Price
+      <input type="text" name="subscription_plan[<%= i %>][price]">
+    </label>
+
+    <label>
+      Subscription Plan <%= (i + 1).to_s %> Frequency
+    </label>
+
+    <label>
+      Daily
+      <input type="radio"
+        name="subscription_plan[<%= i %>][daily]" value="true">
+    </label>
+
+    <label>
+      Weekly
+      <input type="radio"
+        name="subscription_plan[<%= i %>][daily]" value="false">
+    </label>
+
+
+  <% end %>
+
   <input type="submit" value="Create Newspaper">
 </form>

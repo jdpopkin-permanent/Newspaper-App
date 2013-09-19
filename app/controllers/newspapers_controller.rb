@@ -1,5 +1,8 @@
 class NewspapersController < ApplicationController
 
+  include NewspapersHelper
+
+
   def new
     @newspaper = Newspaper.new
     render :new
@@ -7,22 +10,46 @@ class NewspapersController < ApplicationController
 
   def create
     @newspaper = Newspaper.new(params[:newspaper])
+    @plans = populate_plans(params)
 
-    if @newspaper.save
-      redirect_to newspapers_url
-    else
+    save_failed = false
+
+    ActiveRecord::Base.transaction do
+      @newspaper.save
+
+      @plans.each do |plan|
+        plan.newspaper = @newspaper
+        plan.save
+      end
+
+      unless @newspaper.valid? && @plans.all? { |plan| plan.valid?}
+        save_failed = true
+        raise ActiveRecord::Rollback
+      end
+    end
+
+    if save_failed
       flash.now[:errors] ||= []
-      flash.now[:errors] += newspaper.errors.full_messages
+      flash.now[:errors] += @newspaper.errors.full_messages
+
+      @plans.each do |plan|
+        flash.now[:errors] += plan.errors.full_messages
+      end
+
       render :new
+    else
+      redirect_to newspapers_url
     end
   end
 
-  def index
 
+  def index
+    @newspapers = Newspaper.all
+    render :index
   end
 
   def show
-    @newspaper = Newspaper.find(params[:id]).includes(:subscription_plans)
+    @newspaper = Newspaper.includes(:subscription_plans).find(params[:id])
     @subscription_plans = @newspaper.subscription_plans
 
     render :show

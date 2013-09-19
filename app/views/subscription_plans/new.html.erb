@@ -1,6 +1,6 @@
 <h2>Create Subscription Plan</h2>
 
-<form action="<% newspaper_subscription_plans_url(@newspaper) %>" method="post">
+<form action="<%= newspaper_subscription_plans_url(@newspaper) %>" method="post">
   <input  type="hidden" name="authenticity_token"
           value="<%= form_authenticity_token %>">
 

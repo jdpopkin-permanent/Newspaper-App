@@ -5,7 +5,7 @@ class Newspaper < ActiveRecord::Base
   validates :title, presence: true
 
   has_many :subscription_plans, class_name: "SubscriptionPlan",
-  primary_key: :id, foreign_key: :newspaper_id
+  primary_key: :id, foreign_key: :newspaper_id, dependent: :destroy
 
 
 end

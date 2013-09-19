@@ -1,6 +1,6 @@
 News::Application.routes.draw do
   resources :newspapers do
-    resources :subscription_plans
+    resources :subscription_plans, only: [:new, :create]
   end
 
 
