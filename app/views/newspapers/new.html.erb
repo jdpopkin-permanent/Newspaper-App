@@ -1,0 +1,15 @@
+<h1>Create a newspaper</h1>
+
+<form action="<%= newspapers_url%>" method="post">
+  <label>
+    Title
+    <input type="text" name="newspaper[title]">
+  </label>
+
+  <label>
+    Editor
+    <input type="text" name="newspaper[editor]">
+  </label>
+
+  <input type="submit" value="Create Newspaper">
+</form>

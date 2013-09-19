@@ -1,0 +1,9 @@
+<h2><%= @newspaper.title %></h2>
+
+<h4>Available subscription plans:</h4>
+
+<% @subscription_plans.each do |sp| %>
+  <%= sp.daily ? "Daily" : "Weekly" %>
+  <%= sp.price %>
+  <br>
+<% end %>
